@@ -1,12 +1,13 @@
 import requests
 import allure
 import pytest
-from data import URL
+
+from data import URL, Messages
 from helpers import UserGenerator
 
 
 @allure.feature('Проверка создания пользователя')
-class TestPostOrderCreate:
+class TestUserCreate:
     @allure.title('Проверка создания пользователя с уникальными данными')
     def test_user_create(self, url=URL.USER_REG_URL):
         payload = UserGenerator().generate_user_info()
@@ -23,7 +24,7 @@ class TestPostOrderCreate:
 
         assert response.status_code == 403
         assert response.json()["success"] is False
-        assert response.json()["message"] == "User already exists"
+        assert response.json()["message"] == Messages.USER_NO_UNIQ
 
     @pytest.mark.parametrize("payload",
                              [
@@ -46,4 +47,4 @@ class TestPostOrderCreate:
 
         assert response.status_code == 403
         assert response.json()["success"] is False
-        assert response.json()["message"] == "Email, password and name are required fields"
+        assert response.json()["message"] == Messages.USER_BAD_INFO
