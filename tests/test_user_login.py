@@ -5,7 +5,7 @@ from data import URL, Messages
 from helpers import UserGenerator
 
 
-@allure.feature('Проверка авторизации пользователя')
+@allure.feature("Проверка авторизации пользователя")
 class TestUserLogin:
     @allure.title('Проверка авторизации существующего пользователя')
     def test_exist_user_login(self, user_data, url=URL.USER_AUTH_URL):
@@ -15,7 +15,7 @@ class TestUserLogin:
         assert response.status_code == 200
         assert response.json()["success"] is True
 
-    @allure.title('Проверка авторизации c неверным логином и паролем')
+    @allure.title("Проверка авторизации c неверным логином и паролем")
     def test_user_login_no_exist_negative(self, url=URL.USER_AUTH_URL):
         payload = UserGenerator().generate_user_info()
         response = requests.post(url, data=payload)

@@ -20,4 +20,4 @@ class Messages:
 class RawData:
     BAD_HASH = {"ingredients": ["111111111111111"]}
     BAD_TOKEN = {"Authorization": "111111111111111"}
-    NO_INGRED  =  {"ingredients": []}
+    NO_INGRED = {"ingredients": []}

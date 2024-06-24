@@ -10,8 +10,8 @@ def create_user():
     response = requests.post(url=URL.USER_REG_URL, data=payload)
 
     yield response
-    token = response.json()['accessToken']
-    requests.delete(url=URL.USER_DELETE, headers={'Authorization': token})
+    token = response.json()["accessToken"]
+    requests.delete(url=URL.USER_DELETE, headers={"Authorization": token})
 
 
 @pytest.fixture
@@ -20,18 +20,19 @@ def user_data():
     response = requests.post(url=URL.USER_REG_URL, data=payload)
 
     yield payload
-    token = response.json()['accessToken']
-    requests.delete(url=URL.USER_DELETE, headers={'Authorization': token})
+    token = response.json()["accessToken"]
+    requests.delete(url=URL.USER_DELETE, headers={"Authorization": token})
 
 
 @pytest.fixture
 def user_token():
     payload = helpers.UserGenerator().generate_user_info()
     response = requests.post(url=URL.USER_REG_URL, data=payload)
-    token = response.json()['accessToken']
+    token = response.json()["accessToken"]
 
     yield token
-    requests.delete(url=URL.USER_DELETE, headers={'Authorization': token})
+    requests.delete(url=URL.USER_DELETE, headers={"Authorization": token})
+
 
 @pytest.fixture
 def get_ingredient():
