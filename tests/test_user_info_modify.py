@@ -14,10 +14,8 @@ class TestUserInfoModify:
         {"email": UserGenerator().generate_user_email()}
     ])
     @allure.title('Проверка изменения данных пользователя с авторизацией')
-    def test_user_modify_user_info(self, payload, url=URL.USER_MODIFY_URL):
-        payload_0 = UserGenerator().generate_user_info()
-        requests.post(url=URL.USER_REG_URL, data=payload_0)
-        access_token = requests.post(url=URL.USER_AUTH_URL, data=payload_0).json()["accessToken"]
+    def test_user_modify_user_info(self, user_token, payload, url=URL.USER_MODIFY_URL):
+        access_token = user_token
         response = requests.patch(url, headers={'Authorization': access_token}, data=payload)
 
         assert response.status_code == 200
@@ -30,8 +28,6 @@ class TestUserInfoModify:
     ])
     @allure.title('Проверка изменения данных пользователя без авторизации')
     def test_user_modify_user_info_no_auth_negative(self, payload, url=URL.USER_MODIFY_URL):
-        payload_0 = UserGenerator().generate_user_info()
-        requests.post(url=URL.USER_REG_URL, data=payload_0)
         response = requests.patch(url, data=payload)
 
         assert response.status_code == 401

@@ -8,15 +8,14 @@ from helpers import UserGenerator
 @allure.feature('Проверка авторизации пользователя')
 class TestUserLogin:
     @allure.title('Проверка авторизации существующего пользователя')
-    def test_user_login(self, url=URL.USER_AUTH_URL):
-        payload = UserGenerator().generate_user_info()
-        requests.post(url=URL.USER_REG_URL, data=payload)
+    def test_exist_user_login(self, user_data, url=URL.USER_AUTH_URL):
+        payload = user_data
         response = requests.post(url, data=payload)
 
         assert response.status_code == 200
         assert response.json()["success"] is True
 
-    @allure.title('Проверка авторизации несуществующего пользователя')
+    @allure.title('Проверка авторизации c неверным логином и паролем')
     def test_user_login_no_exist_negative(self, url=URL.USER_AUTH_URL):
         payload = UserGenerator().generate_user_info()
         response = requests.post(url, data=payload)
