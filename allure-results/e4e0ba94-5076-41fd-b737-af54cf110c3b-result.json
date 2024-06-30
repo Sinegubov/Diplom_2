@@ -1,0 +1,1 @@
+{"name": "Проверка создания заказа  с авторизацией с валидным хэшем ингредиентов", "status": "passed", "start": 1719768101900, "stop": 1719768103482, "uuid": "c0d966e3-2a09-46b7-bc83-fbb83aac4dac", "testCaseId": "576ac47a1380ff71f7bc0ed0c194bed2", "fullName": "tests.test_order_create.TestOrderCreate#test_auth_user_create_order_successful"}

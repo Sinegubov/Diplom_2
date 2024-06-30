@@ -5,33 +5,30 @@ from data import URL
 
 
 @pytest.fixture
-def create_user():
+def user_payload():
     payload = helpers.UserGenerator().generate_user_info()
-    response = requests.post(url=URL.USER_REG_URL, data=payload)
+    return payload
 
-    yield response
+
+@pytest.fixture
+def create_user(user_payload):
+    response = requests.post(url=URL.USER_REG_URL, data=user_payload)
     token = response.json()["accessToken"]
+
+    yield response, token
     requests.delete(url=URL.USER_DELETE, headers={"Authorization": token})
 
 
 @pytest.fixture
-def user_data():
-    payload = helpers.UserGenerator().generate_user_info()
-    response = requests.post(url=URL.USER_REG_URL, data=payload)
-
-    yield payload
-    token = response.json()["accessToken"]
-    requests.delete(url=URL.USER_DELETE, headers={"Authorization": token})
+def user_data(user_payload, create_user):
+    yield user_payload
 
 
 @pytest.fixture
-def user_token():
-    payload = helpers.UserGenerator().generate_user_info()
-    response = requests.post(url=URL.USER_REG_URL, data=payload)
-    token = response.json()["accessToken"]
+def user_token(create_user):
+    _, token = create_user
 
     yield token
-    requests.delete(url=URL.USER_DELETE, headers={"Authorization": token})
 
 
 @pytest.fixture
